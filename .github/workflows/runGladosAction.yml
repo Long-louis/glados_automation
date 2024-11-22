@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: 3.9
       - name: Random delay
-        run: sleep $(( $RANDOM \% 60 ))
+        run: sleep $(( $RANDOM % 60 ))
       - name: Install requirements
         run: |
           python -m pip install --upgrade pip

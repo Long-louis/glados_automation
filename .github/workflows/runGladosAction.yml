@@ -3,10 +3,8 @@ name: 开始每日签到
 on:
   workflow_dispatch:
   schedule:
-    # UTC 2点00分(北京时间 10点00分)
-    # 2/10 从 UTC 0点00分(北京时间 8点00分) 开始每隔 10 小时签到一次，防止网络问题导致的签到不上
-    - cron: 0 0/10 * * *
-  # 标星时触发工作流程
+    # 在每天UTC的0点到6点之间随机选择一个时间进行签到
+    - cron: '0 0-6 * * *'
   watch:
     types: [started]
 
@@ -19,6 +17,8 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: 3.9
+      - name: Random delay
+        run: sleep $(( $RANDOM \% 60 ))
       - name: Install requirements
         run: |
           python -m pip install --upgrade pip
